@@ -1,0 +1,15 @@
+.container.has-text-centered
+  = form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f ->
+    .field
+      .control
+        = text_input f, :username, class: "input", placeholder: "email or username", autofocus: true
+    .field
+      .control
+        = password_input f, :password, class: "input", placeholder: "password"
+    = submit "Login", class: "button is-block is-info is-fullwidth"
+  p.has-text-grey.m-t-lg
+    a href="/signup"  Sign Up
+    | &nbsp;·&nbsp;
+    a href="../"  Forgot Password
+    | &nbsp;·&nbsp;
+    a href="../"  Need Help?

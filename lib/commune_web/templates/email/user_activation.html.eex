@@ -1,0 +1,4 @@
+<p>Welcome to commune</p>
+<div style='padding-top:10px;'>
+  <a class='button is-primary' href="<%=activation_url(@user)%>" >Click to activate</a>
+</div>

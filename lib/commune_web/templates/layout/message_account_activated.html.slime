@@ -1,0 +1,10 @@
+= if get_flash(@conn, :info) do
+  .notification.has-background-light.is-light.is-right-notification
+    button.delete
+      span(aria-hidden="true") &times;
+    = get_flash(@conn, :info)
+
+  javascript:
+    setTimeout(() => {
+      $('.is-right-notification').addClass('is-hidden')
+    }, 10000);

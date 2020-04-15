@@ -1,0 +1,5 @@
+ul.m-t-md.right-menu.p-sm
+  li
+    a.is-large.button.is-info.is-rounded.is-size-4(href="/topics/new") New topic
+
+

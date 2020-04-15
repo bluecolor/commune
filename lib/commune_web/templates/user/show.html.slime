@@ -1,0 +1,16 @@
+h2 Show User
+
+ul
+  li
+    strong Name:&nbsp;
+    = @user.name
+  li
+    strong Username:&nbsp;
+    = @user.username
+  li
+    strong Password hash:&nbsp;
+    = @user.password_hash
+
+= link "Edit", to: Routes.user_path(@conn, :edit, @user)
+| &nbsp;
+= link "Back", to: Routes.user_path(@conn, :index)

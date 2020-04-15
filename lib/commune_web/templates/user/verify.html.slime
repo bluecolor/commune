@@ -1,0 +1,22 @@
+section.hero.is-fullheight
+  .hero-body
+    .container.has-text-centered
+      .column.is-6.is-offset-3
+        h3.title.has-text-black Sign up
+        .box
+          / form
+          = form_for @conn, Routes.user_path(@conn, :verify), fn f ->
+            / = form_for @user, Routes.user_path(@conn, :verify_code), fn f ->
+            .field
+              .control
+                = hidden_input f, :id, value: @id
+            .field
+              .control
+                = text_input f, :code, class: "input is-large", placeholder: "verification code"
+                / input.input.is-large autofocus="" placeholder=("verification code")
+            button.button.is-block.is-info.is-large.is-fullwidth
+              | Submit
+        p.has-text-grey
+          a href="../"  Login
+          | &nbsp;·&nbsp;
+          a href="../"  Need Help?

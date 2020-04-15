@@ -1,0 +1,7 @@
+section.hero.is-fullheight
+  .hero-body
+    .container.has-text-centered
+      .column.is-6.is-offset-3
+        .is-size-2-desktop	 Check your email for activation.
+        / button.button.is-block.is-info.is-medium.is-fullwidth.m-t-lg Go to Commune
+        = link("Go to Commune", to: "/", class: "button is-block is-info is-medium is-fullwidth m-t-lg")

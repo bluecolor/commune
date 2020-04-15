@@ -1,0 +1,23 @@
+section.hero.is-fullheight
+  .hero-body
+    .container.has-text-centered
+      .column.is-6.is-offset-3
+        h3.title.has-text-black Sign up
+        .box
+          p.alert.alert-info(role="alert")
+            = get_flash(@conn, :info)
+          = form_for @changeset, Routes.user_path(@conn, :create), fn f ->
+            = if @changeset.action do
+              .alert.alert-danger
+                p Oops, something went wrong!
+            .field
+              .control
+                = email_input f, :email, class: "input is-large", placeholder: "email", autofocus: true
+            .field
+              .control
+                = password_input f, :password, class: "input is-large", placeholder: "password"
+            = submit "Sign up", class: "button is-block is-info is-large is-fullwidth"
+        p.has-text-grey
+          a href="../"  Login
+          | &nbsp;·&nbsp;
+          a href="../"  Need Help?

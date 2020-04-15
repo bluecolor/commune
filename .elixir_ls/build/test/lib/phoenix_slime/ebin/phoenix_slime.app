@@ -1,0 +1,10 @@
+{application,phoenix_slime,
+             [{applications,[kernel,stdlib,elixir,phoenix,slime]},
+              {description,"Phoenix Template Engine for Slim-like templates"},
+              {modules,['Elixir.Mix.Tasks.Phx.Gen.Html.Slime',
+                        'Elixir.Mix.Tasks.Phx.Gen.Layout.Slime',
+                        'Elixir.PhoenixSlime',
+                        'Elixir.PhoenixSlime.ConfiguredExtension',
+                        'Elixir.PhoenixSlime.Engine']},
+              {registered,[]},
+              {vsn,"0.12.0"}]}.

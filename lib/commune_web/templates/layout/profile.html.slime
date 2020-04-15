@@ -1,0 +1,26 @@
+.profile-menu-container.p-sm
+  .header
+    .level
+      .level-left
+        .level-item
+          .subtitle
+            = @current_user.email
+      .level-right
+        .level-item
+          #profile-dropdown.dropdown.is-right
+            .dropdown-trigger
+              .icon-btn
+                = svg_image("user")
+            #profile-dropdown-menu.dropdown-menu role="menu"
+              .dropdown-content
+                a.dropdown-item href="#"
+                  | Profile
+                hr.dropdown-divider/
+                = link "Sign out", class: "dropdown-item has-text-danger", to: Routes.session_path(@conn, :delete), method: :delete
+
+javascript:
+  var dropdown = document.querySelector('#profile-dropdown');
+  dropdown.addEventListener('click', function(event) {
+    event.stopPropagation();
+    dropdown.classList.toggle('is-active');
+  });

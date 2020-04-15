@@ -1,0 +1,48 @@
+= form_for @changeset, Routes.user_path(@conn, :create), [class: 'new-topic p-lg'], fn f ->
+  = if @changeset.action do
+    .alert.alert-danger
+      p Oops, something went wrong!
+  .field
+    .control
+      = text_input f, :title, class: "input is-rounded", placeholder: "Title", autofocus: true
+  .field
+    .control
+      = hidden_input f, :body, value: "", id: "post-body"
+      #trix-toolbar.toolbar
+      trix-editor(toolbar="trix-toolbar" id="trix-editor" placeholder="" input='post-body')
+  .form-button-container
+    = submit "Post", class: "button is-block is-info is-rounded m-r-md"
+    a.button.is-block.is-danger.is-rounded Cancel
+
+css:
+
+  .new-topic {
+    padding-top: 0px !important;
+  }
+
+  .form-button-container {
+    display: flex;
+  }
+
+  #trix-editor {
+    border: 2px solid #dbdbdb;
+    border-radius: 10px;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark-color(black, white);
+  }
+
+  #trix-editor:hover {
+    border-color: #D0D1CD;
+  }
+
+  #trix-editor:focus {
+    border-color: #FA7C91;
+    box-shadow: 0 0 0 0.125em rgba(250, 124, 145, 0.25);
+  }
+
+  #trix-editor {
+    min-height: 150px !important;
+  }
+
+

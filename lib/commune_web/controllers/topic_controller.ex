@@ -13,7 +13,13 @@ defmodule CommuneWeb.TopicController do
 
   def create(conn,  %{"topic" => topic_params}) do
     IO.inspect(topic_params)
-    conn
-    |> redirect(to: Routes.topic_path(conn, :new))
+    case Content.create_topic(topic_params) do
+      {:ok, _} ->
+        conn
+        |> redirect(to: Routes.topic_path(conn, :new))
+      {:error, %Ecto.Changeset{} = changeset} ->
+        IO.inspect(changeset)
+        |> redirect(to: Routes.topic_path(conn, :new))
+    end
   end
 end

@@ -4,8 +4,8 @@ defmodule Commune.Content.Post do
 
   schema "posts" do
     field :body, :string
-    belongs_to :topic, Commune.Content.Topic
-    belongs_to :owner, Commune.Accounts.User
+    belongs_to :topic, Commune.Content.Topic, references: :id
+    belongs_to :owner, Commune.Accounts.User, references: :id
 
     timestamps()
   end

@@ -4,13 +4,13 @@ defmodule Commune.Repo.Migrations.CreatePosts do
   def change do
     create table(:posts) do
       add :body, :string
-      add :topic, references(:posts, on_delete: :delete_all)
-      add :owner, references(:users, on_delete: :nothing)
+      add :topic_id, references(:topics, on_delete: :delete_all)
+      add :owner_id, references(:users, on_delete: :nothing), null: true
 
       timestamps()
     end
 
-    create index(:posts, [:topic])
-    create index(:posts, [:owner])
+    # create index(:posts, [:topic])
+    # create index(:posts, [:owner_id])
   end
 end

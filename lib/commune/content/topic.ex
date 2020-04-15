@@ -4,7 +4,7 @@ defmodule Commune.Content.Topic do
 
   schema "topics" do
     field :title, :string
-    belongs_to :owner, Commune.Accounts.User
+    belongs_to :owner, Commune.Accounts.User, references: :id
     has_many :posts, Commune.Content.Post
 
     timestamps()
@@ -15,5 +15,7 @@ defmodule Commune.Content.Topic do
     topic
     |> cast(attrs, [:title])
     |> validate_required([:title])
+    |> cast_assoc(:posts, required: true)
+    |> cast_assoc(:owner, required: false)
   end
 end

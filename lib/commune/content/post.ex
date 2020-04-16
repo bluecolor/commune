@@ -3,9 +3,9 @@ defmodule Commune.Content.Post do
   import Ecto.Changeset
 
   schema "posts" do
-    field :body, :string
-    belongs_to :topic, Commune.Content.Topic, references: :id
+    field :title, :string
     belongs_to :owner, Commune.Accounts.User, references: :id
+    has_many :comments, Commune.Content.Comment
 
     timestamps()
   end
@@ -13,7 +13,9 @@ defmodule Commune.Content.Post do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:body])
-    |> validate_required([:body])
+    |> cast(attrs, [:title])
+    |> validate_required([:title])
+    |> cast_assoc(:comments, required: true)
+    |> cast_assoc(:owner, required: false)
   end
 end

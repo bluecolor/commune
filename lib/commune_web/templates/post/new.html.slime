@@ -1,22 +1,23 @@
-= form_for @changeset, Routes.user_path(@conn, :create), [class: 'new-topic p-lg'], fn f ->
-  = if @changeset.action do
-    .alert.alert-danger
-      p Oops, something went wrong!
+= form_for @changeset, Routes.post_path(@conn, :create), [class: 'new-post p-lg', as: :post], fn f ->
+  / = if @changeset.action do
+  /   .alert.alert-danger
+  /     p Oops, something went wrong!
   .field
     .control
-      = text_input f, :title, class: "input is-rounded", placeholder: "Title", autofocus: true
-  .field
-    .control
-      = hidden_input f, :body, value: "", id: "post-body"
-      #trix-toolbar.toolbar
-      trix-editor(toolbar="trix-toolbar" id="trix-editor" placeholder="" input='post-body')
+      = text_input f, :title, class: "post-title input is-rounded", placeholder: "Title", autofocus: true
+  = inputs_for f, :comments, fn p ->
+    .field
+      .control
+        = hidden_input p, :body, value: "", id: "post-body"
+        #trix-toolbar.toolbar
+        trix-editor(toolbar="trix-toolbar" id="trix-editor" placeholder="" input="post-body")
   .form-button-container
-    = submit "Post", class: "button is-block is-info is-rounded m-r-md"
+    = submit "Post", class: "button is-block is-info is-rounded m-r-md post-submit-btn", disabled: "disabled"
     a.button.is-block.is-danger.is-rounded Cancel
 
 css:
 
-  .new-topic {
+  .new-post {
     padding-top: 0px !important;
   }
 
@@ -46,3 +47,23 @@ css:
   }
 
 
+javascript:
+  var postTitle = document.querySelector('.post-title')
+  var submitBtn = document.querySelector('.post-submit-btn')
+  var postBody = document.getElementById('post-body')
+
+  var isSubmitDisabled = () => {
+    if (postTitle.value && postBody.value) {
+      submitBtn.removeAttribute("disabled");
+    } else {
+      submitBtn.setAttribute("disabled", "disabled");
+    }
+  }
+
+  postTitle.oninput = () => {
+    isSubmitDisabled()
+  }
+
+  document.querySelector('#trix-editor').addEventListener('trix-change', e => {
+    isSubmitDisabled()
+  })

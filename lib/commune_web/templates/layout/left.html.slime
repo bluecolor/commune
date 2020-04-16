@@ -6,8 +6,8 @@
         = svg_image("search")
 
 
-.topic-list-container.p-md
-  .header
+.topic-list-container
+  .header.p-md
     .level
       .level-left
         .level-item
@@ -28,3 +28,17 @@
                 hr.dropdown-divider/
                 a.dropdown-item href="#"
                   | Customize trends
+
+  .topic-list
+    = for post <- list_posts_with_comment_count do
+      .topic-list-item.p-md = elem(post, 0)
+
+
+css:
+  .topic-list-container .header,
+  .topic-list .topic-list-item:not(:last-child){
+    border-bottom: 0.5px solid rgb(230, 236, 240);
+  }
+
+
+

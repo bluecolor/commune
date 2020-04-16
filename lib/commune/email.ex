@@ -14,7 +14,7 @@ defmodule Commune.Email do
   end
 
   def send_activation(conn, user) do
-    new_email
+    new_email()
     |> from("no-reply@commune.io")
     |> to(user.email)
     |> put_html_layout({CommuneWeb.LayoutView, "email.html"})

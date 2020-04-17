@@ -8,10 +8,11 @@ defmodule CommuneWeb.LayoutView do
   end
 
   def list_posts_with_comment_count do
-    # posts = Content.list_posts()
-    # IO.inspect(posts)
-    # posts
     Content.list_posts_with_comment_count()
+  end
+
+  def comment_count(c) do
+    if c > 1, do: "#{c} Commnets", else: "#{c} Commnet"
   end
 
 end

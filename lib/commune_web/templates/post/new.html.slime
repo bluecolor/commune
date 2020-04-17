@@ -10,7 +10,7 @@
       .control
         = hidden_input p, :body, value: "", id: "post-body"
         #trix-toolbar.toolbar
-        trix-editor(toolbar="trix-toolbar" id="trix-editor" placeholder="" input="post-body")
+        trix-editor.trix-content(toolbar="trix-toolbar" id="trix-editor" placeholder="" input="post-body")
   .form-button-container
     = submit "Post", class: "button is-block is-info is-rounded m-r-md post-submit-btn", disabled: "disabled"
     a.button.is-block.is-danger.is-rounded Cancel
@@ -48,7 +48,7 @@ css:
 
 
 javascript:
-  var postTitle = document.querySelector('.post-title')
+  var postTitle = document.querySelector('input.post-title')
   var submitBtn = document.querySelector('.post-submit-btn')
   var postBody = document.getElementById('post-body')
 

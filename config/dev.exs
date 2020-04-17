@@ -81,3 +81,7 @@ config :commune, Commune.Repo,
   migration_lock: nil
 
 import_config "dev.secret.exs"
+
+config :scrivener_html,
+  routes_helper: Commune.Router.Helpers,
+  view_style: :bulma

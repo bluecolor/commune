@@ -28,7 +28,9 @@ defmodule CommuneWeb.Router do
     get "/", PageController, :index
     get "/activate", UserController, :activate_user
 
-    resources "/posts", PostController, only: [:new, :create]
+    resources "/posts", PostController, only: [:new, :create, :show] do
+      resources "/comments", CommentController, only: [:create, :delete, :update]
+    end
   end
 
   scope "/", CommuneWeb do

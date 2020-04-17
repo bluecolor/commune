@@ -12,7 +12,6 @@ defmodule CommuneWeb.PostController do
   end
 
   def create(conn,  %{"post" => post_params}) do
-    IO.inspect(post_params)
     case Content.create_post(post_params) do
       {:ok, _} ->
         conn
@@ -22,4 +21,15 @@ defmodule CommuneWeb.PostController do
         |> redirect(to: Routes.post_path(conn, :new))
     end
   end
+
+  def show(conn, params) do
+    post = Content.get_post!(params["id"])
+    page = Content.get_commnets_page(params)
+
+    IO.inspect(page)
+    conn
+    |> render("show.html", comments: page.entries, post: post, page: page)
+  end
+
+
 end

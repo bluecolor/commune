@@ -1,0 +1,16 @@
+.post-container.p-l-lg.p-r-lg
+  .post-title-container
+    h1.title
+      = @post.title
+  .post-comments.m-t-lg.m-b-lg
+    = for comment <- @comments do
+      .trix-content
+        = raw(comment.body)
+  .pagination.m-t-lg.is-pulled-right
+    eex:
+      <%= pagination_links @page, next: "Next", previous: "Prev" %>
+
+
+css:
+  .post-comments {
+  }

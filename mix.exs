@@ -20,7 +20,7 @@ defmodule Commune.MixProject do
   def application do
     [
       mod: {Commune.Application, []},
-      extra_applications: [:logger, :runtime_tools, :bamboo]
+      extra_applications: [:logger, :runtime_tools, :bamboo, :scrivener_ecto, :scrivener_html]
     ]
   end
 
@@ -49,7 +49,9 @@ defmodule Commune.MixProject do
       {:bcrypt_elixir, "~> 2.2"},
       {:bamboo, "~> 1.4"},
       {:bamboo_smtp, "~> 2.1"},
-      {:phoenix_inline_svg, "~> 1.3"}
+      {:phoenix_inline_svg, "~> 1.3"},
+      {:scrivener_ecto, "~> 2.0"},
+      {:scrivener_html, "~> 1.8"}
     ]
   end
 

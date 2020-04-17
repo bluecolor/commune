@@ -40,10 +40,24 @@ defmodule Commune.Content do
     query = from p in Post,
       join: c in Comment,
       on: p.id == c.post_id,
-      group_by: p.title,
-      select: {p.title, count(c.id)}
+      group_by: [p.id, p.title],
+      select: {p.id, p.title, count(c.id)}
 
     Repo.all(query)
+  end
+
+  def get_commnets_page(params) do
+    # query = from c in Comment,
+    #   join: p in assoc(c, :post),
+    #   where: p.id == ^params["id"],
+    #   select: c
+
+    query = from p in Post,
+      join: c in assoc(p, :comments),
+      where: p.id == ^params["id"],
+      select: c
+
+    query |> Repo.paginate(params)
   end
 
 end

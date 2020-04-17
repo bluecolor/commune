@@ -6,7 +6,7 @@
         = svg_image("search")
 
 
-.topic-list-container
+.post-list-container
   .header.p-md
     .level
       .level-left
@@ -29,16 +29,51 @@
                 a.dropdown-item href="#"
                   | Customize trends
 
-  .topic-list
+  .post-list
     = for post <- list_posts_with_comment_count do
-      .topic-list-item.p-md = elem(post, 0)
-
-
+      eex:
+        <%= link to: Routes.post_path(@conn, :show, elem(post,0)) do %>
+          <div class="post-list-item p-l-md p-r-md p-t-sm p-b-sm">
+            <div class="post-title">
+              <%= elem(post, 1) %>
+            </div>
+            <div class="comment-count">
+              <%= comment_count(elem(post, 2)) %>
+            </div>
+          </div>
+        <% end %>
 css:
-  .topic-list-container .header,
-  .topic-list .topic-list-item:not(:last-child){
+  .post-list-container .header,
+  .post-list a:not(:last-child) .post-list-item{
     border-bottom: 0.5px solid rgb(230, 236, 240);
   }
 
+  .post-list-item {
+    cursor: pointer;
+  }
+
+  .post-list-item:hover {
+    background-color: #E6ECF0;
+  }
+
+  .post-list a:last-child .post-list-item {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  .post-list-container {
+    background-color: #F5F8FA;
+    border-radius: 20px;
+    margin-top: 20px;
+  }
+
+  .post-list-item .post-title {
+    color: #363636;
+    font-weight: 600;
+  }
+
+  .post-list-item .comment-count {
+    font-size: 0.9rem;
+    color: #757763;
+  }
 
 

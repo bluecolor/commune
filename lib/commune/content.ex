@@ -36,6 +36,12 @@ defmodule Commune.Content do
     Comment.changeset(comment, %{})
   end
 
+  def create_comment(attrs \\ %{}) do
+    %Comment{}
+    |> Comment.changeset(attrs)
+    |> Repo.insert()
+  end
+
   def list_posts_with_comment_count do
     query = from p in Post,
       join: c in Comment,
@@ -47,17 +53,12 @@ defmodule Commune.Content do
   end
 
   def get_commnets_page(params) do
-    # query = from c in Comment,
-    #   join: p in assoc(c, :post),
-    #   where: p.id == ^params["id"],
-    #   select: c
-
     query = from p in Post,
       join: c in assoc(p, :comments),
       where: p.id == ^params["id"],
       select: c
 
-    query |> Repo.paginate(params)
+    Repo.paginate(query, params)
   end
 
 end

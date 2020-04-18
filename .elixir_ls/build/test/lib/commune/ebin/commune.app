@@ -14,6 +14,7 @@
                         'Elixir.Commune.DataCase','Elixir.Commune.Email',
                         'Elixir.Commune.Mailer','Elixir.Commune.Repo',
                         'Elixir.CommuneWeb','Elixir.CommuneWeb.ChannelCase',
+                        'Elixir.CommuneWeb.CommentController',
                         'Elixir.CommuneWeb.CommentView',
                         'Elixir.CommuneWeb.ConnCase',
                         'Elixir.CommuneWeb.EmailView',

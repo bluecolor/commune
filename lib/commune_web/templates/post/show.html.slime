@@ -28,24 +28,30 @@
                     | Block
                   a.dropdown-item href="#"
                     | Report
-  #trix-comment-toolbar.toolbar
-  trix-editor.trix-content(toolbar="trix-toolbar" id="trix-editor" placeholder="Add comment" input="post-body")
-  .level.m-t-lg
-    .level-left
-      .level-item
-        button.button.comment-action-btn.is-rounded
-          = svg_image("send")
-          span Send
-      .level-item
-        button.button.comment-action-btn.is-rounded
-          = svg_image("document")
-          span Draft
-    .level-right
-      .level-item
-        .pagination
+  = form_for @conn, Routes.post_comment_path(@conn, :create, @post, draft: false), [class: '', as: :comment], fn f ->
+    = hidden_input f, :post_id, value: @post.id
+    = hidden_input f, :body, value: "", id: "comment-body"
+    #trix-toolbar.toolbar
+    trix-editor.trix-content(toolbar="trix-toolbar" id="trix-editor" placeholder="Add comment" input="comment-body")
+    .level.m-t-lg
+      .level-left
+        .level-item
           eex:
-            <%= pagination_links @page, next: "Next", previous: "Prev" %>
-
+            <%= submit class: "button comment-action-btn is-rounded" do %>
+              <%= svg_image("send") %>
+              <span>Send</span>
+            <% end %>
+        .level-item
+          eex:
+            <%= submit formaction: Routes.post_comment_path(@conn, :create, @post, draft: true), class: "button comment-action-btn is-rounded" do %>
+              <%= svg_image("document") %>
+              <span>Send</span>
+            <% end %>
+      .level-right
+        .level-item
+          .pagination
+            eex:
+              <%= pagination_links @page, next: "Next", previous: "Prev" %>
 
 css:
   .comment-action-btn {
@@ -104,8 +110,7 @@ css:
 
   #trix-editor {
     border-color: #dbdbdb;
-    height: 40px !important;
-    min-height: 40px !important;
+    min-height: 40px;
     border-radius: 10px;
   }
 
@@ -113,6 +118,25 @@ css:
     border-color: #D0D1CD;
   }
 
-  #trix-editor:focus {
-    height: 100px !important;
+  .trix-editor-focus {
+    min-height: 100px !important;
   }
+
+  .trix-editor-empty {
+    height: 40px;
+  }
+
+
+javascript:
+  editor = document.getElementById("trix-editor")
+  editor.addEventListener('focus', function() {
+    editor.classList.add("trix-editor-focus")
+  })
+  editor.addEventListener('blur', function() {
+    var value = document.getElementById('comment-body').value
+    if (!value) {
+      editor.classList.remove("trix-editor-focus")
+      editor.classList.add("trix-editor-empty")
+    }
+  })
+

@@ -23,6 +23,7 @@ import './trends'
 import './notification'
 import './rich-editor'
 import './trix'
+import './comment'
 
 if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );

@@ -3,14 +3,116 @@
     h1.title
       = @post.title
   .post-comments.m-t-lg.m-b-lg
-    = for comment <- @comments do
+    = for {comment, index} <-  Enum.with_index(@comments) do
       .trix-content
         = raw(comment.body)
-  .pagination.m-t-lg.is-pulled-right
-    eex:
-      <%= pagination_links @page, next: "Next", previous: "Prev" %>
+      .comment-footer.level.m-t-md
+        .level-left
+          .level-item.reaction.comment-like
+            = svg_image("heart")
+        .level-right
+          .level-item.comment-date
+            =comment.inserted_at
+          .level-item.comment-menu.reaction
+            .comment-dd.dropdown.is-right(comment-index="<%= index %>")
+              .dropdown-trigger
+                .icon-btn
+                  = svg_image("more")
+              .comment-dd-menu.dropdown-menu role="menu"
+                .dropdown-content
+                  a.dropdown-item href="#"
+                    | This comment's not helpful
+                  a.dropdown-item
+                    | Follow
+                  a.dropdown-item href="#"
+                    | Block
+                  a.dropdown-item href="#"
+                    | Report
+  #trix-comment-toolbar.toolbar
+  trix-editor.trix-content(toolbar="trix-toolbar" id="trix-editor" placeholder="Add comment" input="post-body")
+  .level.m-t-lg
+    .level-left
+      .level-item
+        button.button.comment-action-btn.is-rounded
+          = svg_image("send")
+          span Send
+      .level-item
+        button.button.comment-action-btn.is-rounded
+          = svg_image("document")
+          span Draft
+    .level-right
+      .level-item
+        .pagination
+          eex:
+            <%= pagination_links @page, next: "Next", previous: "Prev" %>
 
 
 css:
-  .post-comments {
+  .comment-action-btn {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    color: #ccc;
+  }
+
+  .comment-action-btn svg {
+    height: 24px;
+    width: 24px;
+    fill: #ccc;
+  }
+  .comment-action-btn span {
+    display: block;
+    margin-left: 4px;
+  }
+
+  .comment-action-btn:hover *,
+  .comment-action-btn:focus *,
+  .comment-action-btn:active * {
+    color: #363636;
+    fill: #363636;
+  }
+
+  .reaction svg {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    fill: #ccc;
+  }
+
+  .reaction:hover svg {
+    fill: #888;
+  }
+
+  .comment-date {
+    font-size: 0.8rem;
+    color: #ccc;
+  }
+
+  .add-comment {
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    color: #bbb;
+  }
+
+  .add-comment:hover {
+    cursor: text;
+    border-color: #FA7C91;
+    box-shadow: 0 0 0 0.125em rgba(250, 124, 145, 0.25);
+  }
+
+  #trix-editor {
+    border-color: #dbdbdb;
+    height: 40px !important;
+    min-height: 40px !important;
+    border-radius: 10px;
+  }
+
+  #trix-editor:hover {
+    border-color: #D0D1CD;
+  }
+
+  #trix-editor:focus {
+    height: 100px !important;
   }

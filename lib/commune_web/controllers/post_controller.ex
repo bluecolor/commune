@@ -25,10 +25,9 @@ defmodule CommuneWeb.PostController do
   def show(conn, params) do
     post = Content.get_post!(params["id"])
     page = Content.get_commnets_page(params)
-
-    IO.inspect(page)
+    comment_changeset = Comment.changeset(%Comment{})
     conn
-    |> render("show.html", comments: page.entries, post: post, page: page)
+      |> render("show.html", comments: page.entries, post: post, page: page, comment_changeset: comment_changeset)
   end
 
 

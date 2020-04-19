@@ -30,6 +30,8 @@ $sizes: (0,10,15,20,25,30,50);
 $positions: ('top','left','bottom','right');
 
 
+
+
 //Import Bulma
 @import 'bulma';
 @import 'colors.scss';
@@ -40,3 +42,4 @@ $positions: ('top','left','bottom','right');
 @import "left-serach.scss";
 @import "helpers.scss";
 @import "trix.css";
+

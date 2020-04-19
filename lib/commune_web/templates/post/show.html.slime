@@ -1,35 +1,35 @@
-.post-container.p-l-lg.p-r-lg
+.post-container.p-l-lg.p-r-lg(post-id=@post.id)
   .post-title-container
     h1.title
       = @post.title
   .post-comments.m-t-lg.m-b-lg
-    = for {comment, index} <-  Enum.with_index(@comments) do
-      .trix-content
-        = raw(comment.body)
-      .comment-footer.level.m-t-md
-        .level-left
-          .level-item.reaction.comment-like
-            = svg_image("heart")
-        .level-right
-          .level-item.comment-date
-            =comment.inserted_at
-          .level-item.comment-menu.reaction
-            .comment-dd.dropdown.is-right(comment-index="<%= index %>")
-              .dropdown-trigger
-                .icon-btn
-                  = svg_image("more")
-              .comment-dd-menu.dropdown-menu role="menu"
-                .dropdown-content
-                  a.dropdown-item href="#"
-                    | This comment's not helpful
-                  a.dropdown-item
-                    | Follow
-                  a.dropdown-item href="#"
-                    | Block
-                  a.dropdown-item href="#"
-                    | Report
-  = form_for @conn, Routes.post_comment_path(@conn, :create, @post, draft: false), [class: '', as: :comment], fn f ->
-    = hidden_input f, :post_id, value: @post.id
+    = for comment <- @comments do
+      .comment(comment-id=comment.id)
+        .trix-content
+          = raw(comment.body)
+        .comment-footer.level.m-t-md
+          .level-left
+            .level-item.reaction.comment-like
+              = svg_image("heart")
+          .level-right
+            .level-item.comment-date
+              =comment.inserted_at
+            .level-item.comment-menu.reaction
+              .comment-dd.dropdown.is-right
+                .dropdown-trigger
+                  .reaction
+                    = svg_image("more")
+                .comment-dd-menu.dropdown-menu role="menu"
+                  .dropdown-content
+                    a.dropdown-item href="#"
+                      | This comment's not helpful
+                    a.dropdown-item
+                      | Follow
+                    a.dropdown-item href="#"
+                      | Block
+                    a.dropdown-item href="#"
+                      | Report
+  = form_for @comment_changeset, Routes.post_comment_path(@conn, :create, @post, draft: false), [class: '', as: :comment], fn f ->
     = hidden_input f, :body, value: "", id: "comment-body"
     #trix-toolbar.toolbar
     trix-editor.trix-content(toolbar="trix-toolbar" id="trix-editor" placeholder="Add comment" input="comment-body")
@@ -78,10 +78,12 @@ css:
   }
 
   .reaction svg {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
     fill: #ccc;
+    display: block;
+    margin: auto;
   }
 
   .reaction:hover svg {
@@ -102,12 +104,6 @@ css:
     color: #bbb;
   }
 
-  .add-comment:hover {
-    cursor: text;
-    border-color: #FA7C91;
-    box-shadow: 0 0 0 0.125em rgba(250, 124, 145, 0.25);
-  }
-
   #trix-editor {
     border-color: #dbdbdb;
     min-height: 40px;
@@ -124,6 +120,14 @@ css:
 
   .trix-editor-empty {
     height: 40px;
+  }
+
+  .comment-liked svg {
+    fill: #d50000 !important;
+  }
+
+  .post-comments .comment:not(:first-child) {
+    margin-top: 45px;
   }
 
 

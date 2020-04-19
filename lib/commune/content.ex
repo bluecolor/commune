@@ -36,9 +36,9 @@ defmodule Commune.Content do
     Comment.changeset(comment, %{})
   end
 
-  def create_comment(attrs \\ %{}) do
-    %Comment{}
-    |> Comment.changeset(attrs)
+  def create_comment(post_id, comment \\ %{}) do
+    get_post!(post_id)
+    |> Ecto.build_assoc(:comments, body: comment["body"])
     |> Repo.insert()
   end
 

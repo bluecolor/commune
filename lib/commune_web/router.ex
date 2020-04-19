@@ -12,6 +12,7 @@ defmodule CommuneWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CommuneWeb.Plugs.SetCurrentUser
   end
 
   pipeline :login do
@@ -22,6 +23,10 @@ defmodule CommuneWeb.Router do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 
+  scope "/api", CommuneWeb, as: :api do
+    pipe_through :api
+  end
+
   scope "/", CommuneWeb do
     pipe_through :browser
 
@@ -29,7 +34,9 @@ defmodule CommuneWeb.Router do
     get "/activate", UserController, :activate_user
 
     resources "/posts", PostController, only: [:new, :create, :show] do
-      resources "/comments", CommentController, only: [:create, :delete, :update]
+      resources "/comments", CommentController, only: [:create, :delete, :update] do
+        put "/like", CommentController, :like
+      end
     end
   end
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%= csrf_meta_tag() %>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,31 +9,34 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
-    <main role="main" class="container is-fluid">
 
+    <main role="main" class="container is-fluid is-fullheight">
       <div class="columns is-fullheight ">
         <div class="column left is-3">
           <%= render "left.html", %{conn: @conn} %>
         </div>
-        <div class="column center is-6">
-          <%= render @view_module, @view_template, assigns %>
-        </div>
-        <div class="column right is-3">
-          <%= render "message_account_activated.html", Map.put(assigns, :conn, @conn) %>
-          <%=
-            if not @user_signed_in? do
-              render "login-panel.html", Map.put(assigns, :conn, @conn)
-            else
-              render "profile.html", %{current_user: @current_user, conn: @conn}
-            end
-          %>
-          <%= if @user_signed_in?, do: render "right-menu.html" %>
+
+        <div class="column is-9 right-container">
+          <div class="columns">
+            <div class="column center is-8">
+              <%= render @view_module, @view_template, assigns %>
+            </div>
+            <div class="column right is-4">
+              <%= render "message_account_activated.html", Map.put(assigns, :conn, @conn) %>
+              <%=
+                if not @user_signed_in? do
+                  render "login-panel.html", Map.put(assigns, :conn, @conn)
+                else
+                  render "profile.html", %{current_user: @current_user, conn: @conn}
+                end
+              %>
+              <%= if @user_signed_in?, do: render "right-menu.html" %>
+            </div>
+          </div>
         </div>
       </div>
-
-
-
     </main>
+
     <script type="text/javascript" src='<%= Routes.static_path(@conn, "/js/app.js") %>'></script>
   </body>
 </html>

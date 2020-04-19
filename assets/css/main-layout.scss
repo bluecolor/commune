@@ -1,5 +1,10 @@
-.column.left, .column.center  {
+main .column.left,
+main .column.center  {
   border-right: 0.5px solid #ccc;
+}
+
+main .right-container {
+  padding-right: 32px;
 }
 
 $tablet: 769px !default;
@@ -7,10 +12,23 @@ $desktop: 1400px !default;
 $widescreen: 1192px !default;
 $fullhd: 1384px !default;
 
+main.column.left {
+  position: fixed;
+}
+
+body, html {
+  overflow: hidden;
+}
+
+html,body, main, .is-fullheight {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  min-height: 100%;
+}
 
 .columns.is-fullheight {
   margin-top: 0;
-  height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: stretch;
@@ -18,3 +36,15 @@ $fullhd: 1384px !default;
 .columns.is-fullheight .column {
   overflow-y: auto;
 }
+
+
+main {
+  padding-right: 0px !important;
+  .center {
+    min-height: 100vh;
+  }
+}
+
+
+
+

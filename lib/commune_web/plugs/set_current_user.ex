@@ -8,8 +8,8 @@ defmodule CommuneWeb.Plugs.SetCurrentUser do
   end
 
   def call(conn, _params) do
+    IO.inspect(conn)
     user_id = Plug.Conn.get_session(conn, :current_user_id)
-
     cond do
       current_user = user_id && Repo.get(User, user_id) ->
         conn

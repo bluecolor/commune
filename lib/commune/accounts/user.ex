@@ -2,6 +2,8 @@ defmodule Commune.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Commune.Content.Comment
+
   schema "users" do
     field :name, :string
     field :password, :string, virtual: true
@@ -10,6 +12,7 @@ defmodule Commune.Accounts.User do
     field :email, :string
     field :code, :string
     field :verified, :boolean
+    many_to_many :liked_comments, Comment, join_through: "comment_like", on_replace: :delete
 
     timestamps()
   end

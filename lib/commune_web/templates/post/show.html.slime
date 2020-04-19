@@ -29,6 +29,9 @@
                       | Block
                     a.dropdown-item href="#"
                       | Report
+                    a.dropdown-item href="#"
+                      | Delete
+
   = form_for @comment_changeset, Routes.post_comment_path(@conn, :create, @post, draft: false), [class: '', as: :comment], fn f ->
     = hidden_input f, :body, value: "", id: "comment-body"
     #trix-toolbar.toolbar

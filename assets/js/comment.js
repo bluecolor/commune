@@ -2,6 +2,7 @@ var CSRF_TOKEN = $("meta[name='csrf-token']").attr("content")
 
 $('.comment-dd').on('click',function (e) {
   e.stopPropagation()
+  $('.comment-dd.is-active').removeClass('is-active')
   $(this).addClass('is-active')
 })
 

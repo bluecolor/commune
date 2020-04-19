@@ -71,6 +71,10 @@ css:
     font-weight: 600;
   }
 
+  .post-title {
+    word-wrap:break-word;
+  }
+
   .post-list-item .comment-count {
     font-size: 0.9rem;
     color: #757763;

@@ -12,7 +12,6 @@ defmodule CommuneWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug CommuneWeb.Plugs.SetCurrentUser
   end
 
   pipeline :login do

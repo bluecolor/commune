@@ -10,6 +10,7 @@
                         'Elixir.Commune.Accounts.User',
                         'Elixir.Commune.Application','Elixir.Commune.Content',
                         'Elixir.Commune.Content.Comment',
+                        'Elixir.Commune.Content.CommentLike',
                         'Elixir.Commune.Content.Post',
                         'Elixir.Commune.DataCase','Elixir.Commune.Email',
                         'Elixir.Commune.Mailer','Elixir.Commune.Repo',

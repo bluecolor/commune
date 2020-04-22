@@ -39,6 +39,7 @@ main {
     padding-right: 120px;
     .center {
       min-height: 100vh;
+      overflow-y: hidden !important;
     }
   }
 }

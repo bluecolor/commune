@@ -12,8 +12,18 @@
         #trix-toolbar.toolbar
         trix-editor.trix-content(toolbar="trix-toolbar" id="trix-editor" placeholder="" input="post-body")
   .form-button-container
-    = submit "Post", class: "button is-block is-info is-rounded m-r-md post-submit-btn", disabled: "disabled"
-    a.button.is-block.is-danger.is-rounded Cancel
+    eex:
+      <%= submit class: "button post-action-btn is-rounded", disabled: "disabled" do %>
+        <%= svg_image("send") %>
+        <span>Send</span>
+      <%end%>
+
+      <%= submit formaction: "", class: "button post-action-btn is-rounded m-l-md", disabled: "disabled" do %>
+        <%= svg_image("document") %>
+        <span>Draft</span>
+      <% end %>
+
+    a.button.is-danger.is-outlined.is-rounded.m-l-md.is-cancel Cancel
 
 css:
 

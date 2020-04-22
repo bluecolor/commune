@@ -4,7 +4,9 @@ defmodule Commune.Content do
   alias Commune.Repo
 
   alias Commune.Content.{Post, Comment}
+  alias Commune.Accounts.User
 
+  ### Post ###
 
   def list_posts do
     Repo.all(Post)
@@ -32,6 +34,10 @@ defmodule Commune.Content do
     Post.changeset(post, %{})
   end
 
+  ### Comment ###
+
+  def get_comment!(id), do: Repo.get!(Comment, id)
+
   def change_comment(%Comment{} = comment) do
     Comment.changeset(comment, %{})
   end
@@ -41,6 +47,19 @@ defmodule Commune.Content do
     |> Ecto.build_assoc(:comments, body: comment["body"])
     |> Repo.insert()
   end
+
+  def delete_comment(%Comment{} = comment) do
+    Repo.delete(comment)
+  end
+
+  def like_comment(current_user, comment_id) do
+    current_user
+    |> Repo.preload(:liked_comments)
+    |> Ecto.Changeset.change
+    |> Ecto.Changeset.put_assoc(:liked_comments, [get_comment!(comment_id)])
+    |> Repo.update()
+  end
+
 
   def list_posts_with_comment_count do
     query = from p in Post,

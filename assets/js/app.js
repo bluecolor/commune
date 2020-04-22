@@ -24,6 +24,7 @@ import './notification'
 import './rich-editor'
 import './trix'
 import './comment'
+import './comment-menu'
 
 if ( window.history.replaceState ) {
   window.history.replaceState( null, null, window.location.href );

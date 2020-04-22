@@ -12,7 +12,7 @@ defmodule Commune.Accounts.User do
     field :email, :string
     field :code, :string
     field :verified, :boolean
-    many_to_many :liked_comments, Comment, join_through: "comment_like", on_replace: :delete
+    many_to_many :liked_comments, Comment, join_through: Commune.Content.CommentLike, on_replace: :delete
 
     timestamps()
   end

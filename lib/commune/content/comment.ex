@@ -8,7 +8,7 @@ defmodule Commune.Content.Comment do
     field :body, :string
     belongs_to :post, Commune.Content.Post, references: :id
     belongs_to :owner, Commune.Accounts.User, references: :id
-    many_to_many :liked_by, User, join_through: "comment_like", on_replace: :delete
+    many_to_many :liked_by, User, join_through: Commune.Content.CommentLike, on_replace: :delete
 
     timestamps()
   end

@@ -29,55 +29,36 @@
                       | Block
                     a.dropdown-item href="#"
                       | Report
-                    a.dropdown-item href="#"
+                    a.dropdown-item(action="delete")
                       | Delete
-
-  = form_for @comment_changeset, Routes.post_comment_path(@conn, :create, @post, draft: false), [class: '', as: :comment], fn f ->
-    = hidden_input f, :body, value: "", id: "comment-body"
-    #trix-toolbar.toolbar
-    trix-editor.trix-content(toolbar="trix-toolbar" id="trix-editor" placeholder="Add comment" input="comment-body")
-    .level.m-t-lg
-      .level-left
-        .level-item
-          eex:
-            <%= submit class: "button comment-action-btn is-rounded" do %>
-              <%= svg_image("send") %>
-              <span>Send</span>
-            <% end %>
-        .level-item
-          eex:
-            <%= submit formaction: Routes.post_comment_path(@conn, :create, @post, draft: true), class: "button comment-action-btn is-rounded" do %>
-              <%= svg_image("document") %>
-              <span>Send</span>
-            <% end %>
-      .level-right
-        .level-item
-          .pagination
+  .bottom
+    = form_for @comment_changeset, Routes.post_comment_path(@conn, :create, @post, draft: false), [class: '', as: :comment], fn f ->
+      = hidden_input f, :body, value: "", id: "comment-body"
+      #trix-toolbar.toolbar
+      trix-editor.trix-content(toolbar="trix-toolbar" id="trix-editor" placeholder="Add comment" input="comment-body")
+      .level.m-t-lg
+        .level-left
+          .level-item
             eex:
-              <%= pagination_links @page, next: "Next", previous: "Prev" %>
-
+              <%= submit class: "button is-rounded post-action-btn", disabled: "disabled" do %>
+                <%= svg_image("send") %>
+                <span>Send</span>
+              <% end %>
+          .level-item
+            eex:
+              <%= submit formaction: Routes.post_comment_path(@conn, :create, @post, draft: true), class: "button post-action-btn is-rounded", disabled: "disabled" do %>
+                <%= svg_image("document") %>
+                <span>Draft</span>
+              <% end %>
+        .level-right
+          .level-item
+            .pagination
+              eex:
+                <%= pagination_links @page, next: "Next", previous: "Prev" %>
 css:
-  .comment-action-btn {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    color: #ccc;
-  }
 
-  .comment-action-btn svg {
-    height: 24px;
-    width: 24px;
-    fill: #ccc;
-  }
-  .comment-action-btn span {
-    display: block;
-    margin-left: 4px;
-  }
-
-  .comment-action-btn:hover *,
-  .comment-action-btn:focus *,
-  .comment-action-btn:active * {
-    color: #363636;
-    fill: #363636;
+  .post-container .bottom {
+    margin-top: 20px;
   }
 
   .reaction svg {
@@ -146,4 +127,3 @@ javascript:
       editor.classList.add("trix-editor-empty")
     }
   })
-

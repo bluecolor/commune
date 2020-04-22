@@ -1,13 +1,8 @@
 var CSRF_TOKEN = $("meta[name='csrf-token']").attr("content")
 
-$('.comment-dd').on('click',function (e) {
-  e.stopPropagation()
-  $('.comment-dd.is-active').removeClass('is-active')
-  $(this).addClass('is-active')
-})
+
 
 $('.reaction.comment-like').on('click', function(e) {
-
   var me = $(this)
   var commentId = $(this).parents('.comment').attr('comment-id')
   var postId = $(this).parents('.post-container').attr('post-id')
@@ -28,4 +23,20 @@ $('.reaction.comment-like').on('click', function(e) {
 
 $('.post-container #trix-editor').on('focus', function() {
   $('.right-container').animate({ scrollTop: $(document).height() }, 1000);
+})
+
+
+var commentActions = $('.post-action-btn')
+var newCommentBody = $('#comment-body')
+
+var isSubmitDisabled = () => {
+  if (!newCommentBody.val()) {
+    commentActions.attr("disabled", "disabled");
+  } else {
+    commentActions.removeAttr("disabled");
+  }
+}
+
+document.querySelector('#trix-editor').addEventListener('trix-change', e => {
+  isSubmitDisabled()
 })

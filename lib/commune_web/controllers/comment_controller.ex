@@ -5,9 +5,6 @@ defmodule CommuneWeb.CommentController do
   alias Commune.Content.{Post, Comment}
 
   def create(conn,  %{"comment" => comment_params, "draft" => is_draft, "post_id" => post_id}) do
-
-    IO.inspect(conn.assigns)
-
     case Content.create_comment(post_id, comment_params) do
       {:ok, _} ->
         conn
@@ -17,14 +14,22 @@ defmodule CommuneWeb.CommentController do
         conn
         |> redirect(to: Routes.post_path(conn, :show, post_id))
     end
-
   end
 
-  def like(conn, %{"post_id"=> post_id,  "comment_id" => comment_id}) do
-    IO.inspect(conn.assigns)
-    IO.inspect(post_id)
+  def delete(conn, %{"id" => id}) do
+    comment = Content.get_comment!(id)
+    case Content.delete_comment(comment) do
+      {:ok, _} -> json conn, :ok
+      {:error, _} -> json conn, :error
+    end
+  end
+
+  def like(conn, %{"comment_id" => comment_id}) do
     IO.inspect(comment_id)
-    json conn, :ok
+    case Content.like_comment(conn.assigns.current_user, comment_id) do
+      {:ok, _} -> json conn, :ok
+      {:error, _} -> json conn, :error
+    end
   end
 
   def dislike(conn, %{"post_id"=> post_id,  "comment_id" => comment_id}) do

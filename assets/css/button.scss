@@ -1,0 +1,26 @@
+.post-action-btn {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  // color: #888;
+  svg {
+    height: 24px;
+    width: 24px;
+    fill: #888;
+  }
+  span {
+    display: block;
+    margin-left: 4px;
+  }
+  // &:not([disabled]):hover *,
+  // &:not([disabled]):focus *,
+  // &:not([disabled]):active * {
+  //   color: #363636;
+  //   fill: #363636;
+  // }
+
+  // &:disabled:hover {
+  //   color: #888;
+  // }
+}
+
+

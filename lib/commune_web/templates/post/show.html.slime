@@ -9,7 +9,7 @@
           = raw(comment.body)
         .comment-footer.level.m-t-md
           .level-left
-            .level-item.reaction.comment-like
+            .level-item.reaction.comment-like(class="#{is_comment_liked(comment)}")
               = svg_image("heart")
           .level-right
             .level-item.comment-date

@@ -43,10 +43,7 @@
           </div>
         <% end %>
 css:
-  .post-list-container .header,
-  .post-list a:not(:last-child) .post-list-item{
-    border-bottom: 0.5px solid rgb(230, 236, 240);
-  }
+
 
   .post-list-item {
     cursor: pointer;

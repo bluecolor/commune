@@ -55,25 +55,3 @@ css:
   #trix-editor {
     min-height: 150px !important;
   }
-
-
-javascript:
-  var postTitle = document.querySelector('input.post-title')
-  var submitBtn = document.querySelector('.post-submit-btn')
-  var postBody = document.getElementById('post-body')
-
-  var isSubmitDisabled = () => {
-    if (postTitle.value && postBody.value) {
-      submitBtn.removeAttribute("disabled");
-    } else {
-      submitBtn.setAttribute("disabled", "disabled");
-    }
-  }
-
-  postTitle.oninput = () => {
-    isSubmitDisabled()
-  }
-
-  document.querySelector('#trix-editor').addEventListener('trix-change', e => {
-    isSubmitDisabled()
-  })

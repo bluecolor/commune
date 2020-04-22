@@ -37,6 +37,6 @@ var isSubmitDisabled = () => {
   }
 }
 
-document.querySelector('#trix-editor').addEventListener('trix-change', e => {
+$('#trix-editor').on('trix-change', e => {
   isSubmitDisabled()
 })

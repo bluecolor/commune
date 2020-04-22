@@ -1,4 +1,3 @@
-
 var dropdown = document.querySelector('#trends-dropdown');
 
 dropdown.addEventListener('click', function(event) {

@@ -1,24 +1,37 @@
 .post-container.p-l-lg.p-r-lg(post-id=@post.id)
-  .post-title-container
-    h1.title
-      = @post.title
+  .post-title-container.level
+    .level-left
+      h1.level-item.title
+        = @post.title
+    .level-right
+      .post-dd.dropdown.is-right
+        .dropdown-trigger.reaction
+          = svg_image("down-arrow")
+        .post-dd-menu.dropdown-menu role="menu"
+          .dropdown-content
+            a.dropdown-item href="#"
+              | Suspend
+            a.dropdown-item href="#"
+              | Report
+            a.dropdown-item(action="delete")
+              | Delete
+
   .post-comments.m-t-lg.m-b-lg
-    = for comment <- @comments do
-      .comment(comment-id=comment.id)
+    = for c <- @comments do
+      .comment(comment-id=c.comment.id)
         .trix-content
-          = raw(comment.body)
+          = raw(c.comment.body)
         .comment-footer.level.m-t-md
           .level-left
-            .level-item.reaction.comment-like(class="#{is_comment_liked(comment)}")
+            .level-item.reaction.comment-like(class="#{is_comment_liked(c.is_liked)}")
               = svg_image("heart")
           .level-right
             .level-item.comment-date
-              =comment.inserted_at
+              =c.comment.inserted_at
             .level-item.comment-menu.reaction
               .comment-dd.dropdown.is-right
-                .dropdown-trigger
-                  .reaction
-                    = svg_image("more")
+                .dropdown-trigger.reaction
+                  = svg_image("more")
                 .comment-dd-menu.dropdown-menu role="menu"
                   .dropdown-content
                     a.dropdown-item href="#"
@@ -29,6 +42,7 @@
                       | Block
                     a.dropdown-item href="#"
                       | Report
+                    = link "Edit", to: "/posts/#{@post.id}/comments/#{c.comment.id}/edit", class: "dropdown-item"
                     a.dropdown-item(action="delete")
                       | Delete
   .bottom

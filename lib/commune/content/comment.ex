@@ -9,6 +9,7 @@ defmodule Commune.Content.Comment do
     belongs_to :post, Commune.Content.Post, references: :id
     belongs_to :owner, Commune.Accounts.User, references: :id
     many_to_many :liked_by, User, join_through: Commune.Content.CommentLike, on_replace: :delete
+    field :is_draft, :boolean
 
     timestamps()
   end

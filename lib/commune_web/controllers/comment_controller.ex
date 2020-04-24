@@ -2,10 +2,18 @@ defmodule CommuneWeb.CommentController do
   use CommuneWeb, :controller
 
   alias Commune.Content
-  alias Commune.Content.{Post, Comment}
+  # alias Commune.Content.{Post, Comment}
+
+
+  def edit(conn, %{"comment_id" => comment_id, "post_id" => post_id}) do
+    post = Content.get_post!(post_id)
+    comment = Content.get_comment!(comment_id)
+    conn
+    |> render("edit.html", comment: comment, post: post)
+  end
 
   def create(conn,  %{"comment" => comment_params, "draft" => is_draft, "post_id" => post_id}) do
-    case Content.create_comment(post_id, comment_params) do
+    case Content.create_comment(post_id, is_draft=="true", comment_params) do
       {:ok, _} ->
         conn
         |> redirect(to: Routes.post_path(conn, :show, post_id))

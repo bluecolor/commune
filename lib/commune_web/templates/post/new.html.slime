@@ -6,7 +6,7 @@
     .control
       = text_input f, :title, class: "post-title input is-rounded", placeholder: "Title", autofocus: true
   = inputs_for f, :comments, fn p ->
-    .field
+    .field.m-t-md
       .control
         = hidden_input p, :body, value: "", id: "post-body"
         #trix-toolbar.toolbar
@@ -48,8 +48,8 @@ css:
   }
 
   #trix-editor:focus {
-    border-color: #FA7C91;
-    box-shadow: 0 0 0 0.125em rgba(250, 124, 145, 0.25);
+    border-color: #3273dc;
+    box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
   }
 
   #trix-editor {

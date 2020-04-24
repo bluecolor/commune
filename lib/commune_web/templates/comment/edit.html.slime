@@ -1,0 +1,40 @@
+.edit-comment-container.m-r-lg.m-l-lg
+  .post-title-container.level
+    .level-left
+      h1.level-item.title
+        = @post.title
+  = form_for @conn, Routes.post_comment_path(@conn, :create, @post, draft: false), [class: "comment-container", as: :comment], fn f ->
+    = hidden_input f, :body, value: @comment.body, id: "comment-body"
+    #trix-toolbar.toolbar
+    trix-editor.trix-content(toolbar="trix-toolbar" id="trix-editor" placeholder="Add comment" input="comment-body")
+
+css:
+
+  .new-post {
+    padding-top: 0px !important;
+  }
+
+  .form-button-container {
+    display: flex;
+  }
+
+  #trix-editor {
+    border: 2px solid #dbdbdb;
+    border-radius: 10px;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark-color(black, white);
+  }
+
+  #trix-editor:hover {
+    border-color: #D0D1CD;
+  }
+
+  #trix-editor:focus {
+    border-color: #3273dc;
+    box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+  }
+
+  #trix-editor {
+    min-height: 150px !important;
+  }

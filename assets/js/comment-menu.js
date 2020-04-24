@@ -1,21 +1,5 @@
 var CSRF_TOKEN = $("meta[name='csrf-token']").attr("content")
 
-$('.comment-dd').on('click',function (e) {
-  if ($(this).hasClass('is-active')) {
-    return;
-  }
-
-  if (e.clientY > $(window).height() / 2) {
-    $('.comment-dd').addClass('is-up')
-  } else {
-    $('.comment-dd').removeClass('is-up')
-  }
-  e.stopPropagation()
-  $('.comment-dd.is-active').removeClass('is-active')
-  $(this).addClass('is-active')
-})
-
-
 var deleleteComment = (postId, commentId) => {
   $.ajax({
     type: 'DELETE',

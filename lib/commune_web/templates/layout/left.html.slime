@@ -6,7 +6,7 @@
         = svg_image("search")
 
 
-.post-list-container
+.post-list-container.m-t-md
   .header.p-md
     .level
       .level-left
@@ -60,7 +60,6 @@ css:
   .post-list-container {
     background-color: #F5F8FA;
     border-radius: 20px;
-    margin-top: 20px;
   }
 
   .post-list-item .post-title {

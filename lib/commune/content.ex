@@ -3,7 +3,7 @@ defmodule Commune.Content do
   import Ecto.Query, warn: false
   alias Commune.Repo
 
-  alias Commune.Content.{Post, Comment}
+  alias Commune.Content.{Post, Comment, CommentLike}
   alias Commune.Accounts.User
 
   ### Post ###
@@ -42,9 +42,9 @@ defmodule Commune.Content do
     Comment.changeset(comment, %{})
   end
 
-  def create_comment(post_id, comment \\ %{}) do
+  def create_comment(post_id, is_draft, comment \\ %{}) do
     get_post!(post_id)
-    |> Ecto.build_assoc(:comments, body: comment["body"])
+    |> Ecto.build_assoc(:comments, body: comment["body"], is_draft: is_draft)
     |> Repo.insert()
   end
 
@@ -71,11 +71,15 @@ defmodule Commune.Content do
     Repo.all(query)
   end
 
-  def get_commnets_page(params) do
+  def get_commnets_page(current_user_id, params) do
     query = from p in Post,
       join: c in assoc(p, :comments),
-      where: p.id == ^params["id"],
-      select: c
+      left_join: cl in CommentLike,
+      on: c.id == cl.comment_id,
+      left_join: u in User,
+      on: cl.user_id == u.id and u.id == ^current_user_id,
+      where: p.id == ^params["id"] and c.is_draft == false,
+      select: %{comment: c, is_liked: not is_nil(u.id)}
 
     Repo.paginate(query, params)
   end

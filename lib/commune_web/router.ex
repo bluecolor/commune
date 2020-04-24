@@ -35,6 +35,7 @@ defmodule CommuneWeb.Router do
     resources "/posts", PostController, only: [:new, :create, :show] do
       resources "/comments", CommentController, only: [:create, :delete, :update] do
         put "/like", CommentController, :like
+        get "/edit", CommentController, :edit
       end
     end
   end

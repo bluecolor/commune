@@ -19,6 +19,7 @@ import "phoenix_html"
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
 
+import './drop-down'
 import './trends'
 import './notification'
 import './rich-editor'
@@ -26,6 +27,7 @@ import './trix'
 import './comment'
 import './comment-menu'
 import './post'
+
 
 
 if ( window.history.replaceState ) {
